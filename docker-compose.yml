@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    networks:
+      - email-notification
+    volumes:
+      - /var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: 'admin'
+      RABBITMQ_DEFAULT_PASS: 'admin'
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  email-notification-service:
+    image: email-notification-service:latest
+    networks:
+      - email-notification
+    environment:
+      SENDER_EMAIL: 'msajawalsial@gmail.com'
+      SEND_GRID_API_KEY: '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'
+      RABBITMQ_USER: 'admin'
+      RABBITMQ_PASSWORD: 'admin'
+      RABBITMQ_HOST: rabbitmq:5672
+      RABBITMQ_QUEUE_NAME: 'emails'
+    depends_on:
+      - rabbitmq
+      
+networks:
+  email-notification:
+    driver: bridge
