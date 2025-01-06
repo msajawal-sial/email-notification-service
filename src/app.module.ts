@@ -3,7 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { SendGridModule } from './sendGrid/sendGrid.module';
 import * as Joi from '@hapi/joi';
 
-
 @Module({
   imports: [
     SendGridModule,
