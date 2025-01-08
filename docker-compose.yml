@@ -20,6 +20,7 @@ services:
 
   email-notification-service:
     image: email-notification-service:latest
+    build: .
     networks:
       - mispay
     environment:
