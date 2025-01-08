@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { SendGridModule } from './sendGrid/sendGrid.module';
+import { SendGridModule } from './send-grid/send-grid.module';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -13,9 +13,9 @@ import * as Joi from '@hapi/joi';
         RABBITMQ_USER: Joi.string().required(),
         RABBITMQ_PASSWORD: Joi.string().required(),
         RABBITMQ_HOST: Joi.string().required(),
-        RABBITMQ_QUEUE_NAME: Joi.string().required()
-      })
-    })
+        RABBITMQ_QUEUE_NAME: Joi.string().required(),
+      }),
+    }),
   ],
 })
 export class AppModule {}

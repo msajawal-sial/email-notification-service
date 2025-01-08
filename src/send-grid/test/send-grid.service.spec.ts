@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SendGridService } from '../sendGrid.service';
+import { SendGridService } from '../send-grid.service';
 import { ConfigService } from '@nestjs/config';
 import * as SendGrid from '@sendgrid/mail';
-import { SendEmailDto } from '../dto/sendEmailDto';
+import { SendEmailDto } from '../dto/send-email.dto';
 
 jest.mock('@sendgrid/mail', () => ({
   setApiKey: jest.fn(),
@@ -48,7 +48,7 @@ describe('SendGridService', () => {
     const mockEmailData: SendEmailDto = {
       recipient: 'test@example.com',
       templateId: 'templateId',
-      metadata: {'Test Key': 'Test Value'}
+      metadata: { 'Test Key': 'Test Value' },
     };
 
     it('should successfully send an email', async () => {
@@ -77,4 +77,4 @@ describe('SendGridService', () => {
       await expect(service.send(mockEmailData)).rejects.toThrow(errorMessage);
     });
   });
-}); 
+});

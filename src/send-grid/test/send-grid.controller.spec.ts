@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SendGridController } from '../sendGrid.controller';
-import { SendGridService } from '../sendGrid.service';
-import { SendEmailDto } from '../dto/sendEmailDto'
+import { SendGridController } from '../send-grid.controller';
+import { SendGridService } from '../send-grid.service';
+import { SendEmailDto } from '../dto/send-email.dto';
 
 describe('SendGridController', () => {
   let controller: SendGridController;
@@ -33,7 +33,7 @@ describe('SendGridController', () => {
       const sendEmailDto: SendEmailDto = {
         recipient: 'test@example.com',
         templateId: 'templateId',
-        metadata: {'Test Key': 'Test Value'}
+        metadata: { 'Test Key': 'Test Value' },
       };
 
       await controller.sendEmail(sendEmailDto);
@@ -41,17 +41,20 @@ describe('SendGridController', () => {
       expect(service.send).toHaveBeenCalledWith(sendEmailDto);
     });
 
-
     it('should handle errors when email sending fails', async () => {
       const sendEmailDto: SendEmailDto = {
         recipient: 'test@example.com',
         templateId: 'templateId',
-        metadata: {'Test Key': 'Test Value'}
+        metadata: { 'Test Key': 'Test Value' },
       };
 
-      jest.spyOn(service, 'send').mockRejectedValue(new Error('Failed to send email'));
+      jest
+        .spyOn(service, 'send')
+        .mockRejectedValue(new Error('Failed to send email'));
 
-      await expect(controller.sendEmail(sendEmailDto)).rejects.toThrow('Failed to send email');
+      await expect(controller.sendEmail(sendEmailDto)).rejects.toThrow(
+        'Failed to send email',
+      );
     });
   });
-}); 
+});
