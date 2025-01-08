@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as SendGrid from '@sendgrid/mail';
-import SendEmailDto from './dto/sendEmailDto';
+import {SendEmailDto } from './dto/sendEmailDto';
 
 @Injectable()
 export class SendGridService {
